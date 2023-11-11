@@ -3,7 +3,6 @@ package com.spring.mvc.chap01;
 
 // 컨트롤러 : 클라이언트의 요청을 받아서 처리 후 응답을 보내주는 역할
 
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
