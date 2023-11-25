@@ -124,19 +124,24 @@ public class ScoreController {
     public String detail(int stuNum, Model model) {
         System.out.println("/score/detail GET");
 
-        Score score = repository.findOne(stuNum);
-        model.addAttribute("s", score);
+        retrieve(stuNum, model);
         return "chap04/score-detail";
     }
 
+    private void retrieve(int stuNum, Model model) {
+        Score score = repository.findOne(stuNum);
+        model.addAttribute("s", score);
+    }
+
+    // 5. 수정 입력 폼을 열어주는 요청
     @GetMapping("/modify")
     public String modify(int stuNum, Model model) {
 
-        Score score = repository.findOne(stuNum);
-        model.addAttribute("s", score);
+        retrieve(stuNum, model);
         return "chap04/score-modify";
     }
 
+    // 6. 수정 처리 요청
     @PostMapping("/modifyScore")
     public String modifyScore(Score score, int kor, int eng, int math) {
         System.out.println("score = " + score);
