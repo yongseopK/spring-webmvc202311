@@ -22,7 +22,7 @@ package com.spring.mvc.chap04.controller;
 import com.spring.mvc.chap04.dto.ScoreRequestDTO;
 import com.spring.mvc.chap04.dto.ScoreResponseDTO;
 import com.spring.mvc.chap04.entity.Score;
-import com.spring.mvc.chap04.repository.ScoreRepository;
+import com.spring.mvc.chap04.service.ScoreService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +40,7 @@ import java.util.stream.Collectors;
 public class ScoreController {
 
     // 저장소에 의존되어 데이터 처리를 위임한다.
-    private final ScoreRepository repository;
+    private final ScoreService service;
 
     //@Autowired  // 스프링에 등록된 빈을 자동주입
     // 생성자 주입을 사용하고 생성자가 단 하나 -> autowired 생략가능
@@ -59,20 +59,13 @@ public class ScoreController {
         System.out.println("/score/list GET - " + sort);
 
         // DB에서 조회한 모든 데이터
-        List<Score> scoreList = repository.findAll(sort);
-        //for (Score score : scoreList) {
-        //    String s = score.getName().replaceAll(".(?<=.{2})", "*");
-        //    score.setName(s);
-        //}
+        List<ScoreResponseDTO> dtoList = service.getList(sort);
 
         //List<ScoreResponseDTO> dtoList = new ArrayList<>();
         //for (Score score : scoreList) {
         //    dtoList.add(new ScoreResponseDTO(score));
         //}
 
-        List<ScoreResponseDTO> dtoList = scoreList.stream()
-                .map(ScoreResponseDTO::new)
-                .collect(Collectors.toList());
 
         model.addAttribute("sList", dtoList);
 
@@ -85,10 +78,7 @@ public class ScoreController {
         System.out.println("/score/Register POST");
         System.out.println("score = " + score);
 
-        // DTO를 엔터티로 변환 -> 데이터 생성
-        Score savedScore = new Score(score);
-
-        repository.save(savedScore);
+        service.insertScore(score);
 
         /*
             # forward vs redirect
@@ -114,7 +104,7 @@ public class ScoreController {
         System.out.printf("/score/remove %s", request.getMethod());
         System.out.println("삭제할 학번 : " + stuNum);
 
-        repository.delete(stuNum);
+        service.deleteScore(stuNum);
 
         return "redirect:/score/list";
     }
@@ -129,7 +119,7 @@ public class ScoreController {
     }
 
     private void retrieve(int stuNum, Model model) {
-        Score score = repository.findOne(stuNum);
+        Score score = service.retrieve(stuNum);
         model.addAttribute("s", score);
     }
 
@@ -151,7 +141,7 @@ public class ScoreController {
 
 
 
-        repository.update(score.getStuNum(), kor, eng, math);
+        service.updateScore(score, kor, eng, math);
 
 
         return "redirect:/score/list";
