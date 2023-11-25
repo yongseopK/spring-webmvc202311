@@ -1,7 +1,7 @@
-package com.spring.mvc.chap4.repository;
+package com.spring.mvc.chap04.repository;
 
-import com.spring.mvc.chap4.entity.Grade;
-import com.spring.mvc.chap4.entity.Score;
+import com.spring.mvc.chap04.entity.Grade;
+import com.spring.mvc.chap04.entity.Score;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
