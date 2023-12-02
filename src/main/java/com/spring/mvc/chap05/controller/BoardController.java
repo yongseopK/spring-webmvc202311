@@ -1,6 +1,5 @@
 package com.spring.mvc.chap05.controller;
 
-import com.spring.mvc.chap04.entity.Score;
 import com.spring.mvc.chap05.dto.BoardWriteRequestDTO;
 import com.spring.mvc.chap05.dto.BoardWriteResponseDTO;
 import com.spring.mvc.chap05.entity.Board;
@@ -9,10 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
