@@ -22,7 +22,7 @@ public class ScoreService {
 
     private final ScoreRepository repository;
 
-    public ScoreService(@Qualifier("mRepo") ScoreRepository repository) {
+    public ScoreService(@Qualifier("dbRepo") ScoreRepository repository) {
         this.repository = repository;
     }
 

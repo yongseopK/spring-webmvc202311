@@ -47,10 +47,10 @@ public class BoardController {
     }
     // 5. 글 상세보기 요청 (/board/detail : GET)
     @GetMapping("/detail")
-    public String detail(int bno, Model model) {
-        System.out.println("볼 게시물 : " + bno);
+    public String detail(@RequestParam("bno") int boardNo, Model model) {
+        System.out.println("볼 게시물 : " + boardNo);
 
-        Board board = service.retrieve(bno);
+        Board board = service.retrieve(boardNo);
 
         BoardWriteResponseDTO dto = new BoardWriteResponseDTO(board);
 

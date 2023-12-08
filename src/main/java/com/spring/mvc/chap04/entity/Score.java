@@ -3,6 +3,9 @@ package com.spring.mvc.chap04.entity;
 import com.spring.mvc.chap04.dto.ScoreRequestDTO;
 import lombok.*;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /*
     엔터티 클래스
     - 데이터베이스에 저장할 데이터를 자바 클래스에 매칭
@@ -26,6 +29,17 @@ public class Score {
         convertInputData(score);
         calculateTotalAndAverage();
         makeGrade();
+    }
+
+    public Score(ResultSet rs) throws SQLException {
+        this.stuNum = rs.getInt("stu_num");
+        this.name = rs.getString("stu_name");
+        this.kor = rs.getInt("kor");
+        this.eng = rs.getInt("eng");
+        this.math = rs.getInt("math");
+        this.total = rs.getInt("total");
+        this.average = rs.getDouble("average");
+        this.grade = Grade.valueOf(rs.getString("grade"));
     }
 
     private void makeGrade() {

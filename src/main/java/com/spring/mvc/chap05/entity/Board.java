@@ -2,6 +2,9 @@ package com.spring.mvc.chap05.entity;
 
 import com.spring.mvc.chap05.dto.BoardWriteRequestDTO;
 import lombok.*;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 @Setter @Getter
@@ -23,8 +26,16 @@ public class Board {
         this.viewCount = getViewCount();
     }
 
+    public Board(ResultSet rs) throws SQLException {
+        this.boardNo = rs.getInt("board_no");
+        this.title = rs.getString("title");
+        this.content = rs.getString("content");
+        this.regDateTime = rs.getTimestamp("regDateTime").toLocalDateTime();
+        this.viewCount = rs.getInt("view_count");
+    }
+
     private void timeFormat() {
-        this.regDateTime = LocalDateTime.now();;
+        this.regDateTime = LocalDateTime.now();
     }
 
 

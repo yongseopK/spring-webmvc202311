@@ -78,6 +78,8 @@ public class ScoreController {
         System.out.println("/score/Register POST");
         System.out.println("score = " + score);
 
+        service.insertScore(score);
+
         /*
             # forward vs redirect
             - forward는 요청 리소스를 그대로 전달해줌

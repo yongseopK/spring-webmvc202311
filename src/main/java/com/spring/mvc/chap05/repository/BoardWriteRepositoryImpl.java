@@ -7,7 +7,7 @@ import java.util.*;
 import static java.util.Comparator.comparing;
 import static java.util.stream.Collectors.toList;
 
-@Repository
+@Repository("MRepo")
 public class BoardWriteRepositoryImpl implements BoardWriteRepository{
     private static final Map<Integer, Board> boardMap;
 
