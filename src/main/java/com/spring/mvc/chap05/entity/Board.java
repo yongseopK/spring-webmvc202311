@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @ToString @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder    // 빌더패턴으로 객체생성 가능
 public class Board {
 
     private int boardNo; // 게시글 번호

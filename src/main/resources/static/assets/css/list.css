@@ -3,9 +3,28 @@
     flex-wrap: wrap;
 }
 
-
 .main-title-wrapper {
     position: relative;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.main-title-wrapper ul{
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.main-title-wrapper ul li{
+    float: left;
+}
+
+.main-title-wrapper ul li a{
+    color: #000;
+}
+
+.main-title-wrapper ul li span{
+    font-size: 35px;
 }
 
 .main-title-wrapper h1 {
@@ -18,14 +37,15 @@
 
 .main-title-wrapper .add-btn {
     width: fit-content;
+    height: fit-content;
     padding: 10px 25px;
     background: rgb(216, 112, 147);
     border-radius: 15px;
     color: #fff;
     font-size: 18px;
-    position: absolute;
-    right: 120px;
-    top: 0;
+    /*position: absolute;*/
+    /*right: 120px;*/
+    /*top: 0;*/
     cursor: pointer;
 }
 .main-title-wrapper .add-btn:hover {
@@ -212,4 +232,29 @@
     color: #f5f5f5;
     background-color: #dd1111;
     border-radius: 4px;
+}
+
+
+/* 페이지 스타일 */
+/* pagination style */
+.bottom-section {
+    display: flex;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.bottom-section nav {
+    flex: 1;
+    justify-content: center;
+}
+
+
+.pagination-custom a {
+    color: #444 !important;
+}
+
+.pagination-custom li.active a,
+.pagination-custom li:hover a {
+    background: #333 !important;
+    color: #fff !important;
 }

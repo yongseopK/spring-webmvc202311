@@ -1,0 +1,36 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace에는 이 파일과 연동될 인터페이스의 전체경로를 적는다 -->
+<mapper namespace="com.spring.mvc.chap06.mybatis.PersonMapper">
+
+    <!--  추상메서드 명세대로 SQL작성  -->
+    <!--  id에는 추상메서드 이름을 적음  -->
+    <insert id="save">
+        INSERT INTO person
+        (id, person_name, person_age)
+        VALUES (#{id}, #{personName}, #{personAge})
+    </insert>
+
+    <update id="update">
+        UPDATE person
+        SET person_name = #{personName}, person_age = #{personAge}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM person WHERE id = #{id}
+    </delete>
+
+    <!--  결과를 어떤 타입으로 내보낼지를 설정  -->
+    <select id="findAll" resultType="person">
+        SELECT * FROM person
+    </select>
+
+    <select id="findOne" resultType="person">
+        SELECT * FROM person WHERE id = #{id}
+    </select>
+
+
+</mapper>

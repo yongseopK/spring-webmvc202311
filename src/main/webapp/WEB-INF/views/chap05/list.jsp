@@ -17,6 +17,11 @@
     <!-- fontawesome css: https://fontawesome.com -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
 
+    <!— bootstrap css —>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
     <link rel="stylesheet" href="/assets/css/main.css">
     <link rel="stylesheet" href="/assets/css/list.css">
 
@@ -27,6 +32,11 @@
 <div id="wrap">
 
     <div class="main-title-wrapper">
+        <ul>
+            <li><a href="/board/list?pageNo=${pageNo}&amount=3"><span class="material-symbols-outlined">filter_3</span></a></li>
+            <li><a href="/board/list?pageNo=${pageNo}&amount=6"><span class="material-symbols-outlined">filter_6</span></a></li>
+            <li><a href="/board/list?pageNo=${pageNo}&amount=9"><span class="material-symbols-outlined">filter_9</span></a></li>
+        </ul>
         <h1 class="main-title">꾸러기 게시판</h1>
         <button class="add-btn">새 글 쓰기</button>
     </div>
@@ -64,8 +74,46 @@
 
 
     </div>
+<%--    <div class="ulContainer">--%>
+<%--        <ul class="pageUl">--%>
+<%--            <li class="pageLi"><a href="/board/list?pageNo=1&amount=${amount}"><span class="material-symbols-outlined">looks_one</span></a></li>--%>
+<%--            <li class="pageLi"><a href="/board/list?pageNo=2&amount=${amount}"><span class="material-symbols-outlined">looks_two</span></a></li>--%>
+<%--            <li class="pageLi"><a href="/board/list?pageNo=3&amount=${amount}"><span class="material-symbols-outlined">looks_3</span></a></li>--%>
+<%--            <li class="pageLi"><a href="/board/list?pageNo=4&amount=${amount}"><span class="material-symbols-outlined">looks_4</span></a></li>--%>
+<%--            <li class="pageLi"><a href="/board/list?pageNo=5&amount=${amount}"><span class="material-symbols-outlined">looks_5</span></a></li>--%>
+<%--        </ul>--%>
+<%--    </div>--%>
 
+
+    <!-- 게시글 목록 하단 영역 -->
+    <div class="bottom-section">
+
+        <!-- 페이지 버튼 영역 -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination pagination-lg pagination-custom">
+                <li class="page-item"><a class="page-link" href="/board/list?pageNo=1"><<</a></li>
+                <c:if test="${maker.prev}">
+                <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.begin - 1}">prev</a></li>
+                </c:if>
+
+                <c:forEach var="i" begin="${maker.begin}" end="${maker.end}" step="1">
+                    <li data-page-num="${i}" class="page-item">
+                        <a class="page-link" href="/board/list?pageNo=${i}">${i}</a>
+                    </li>
+                </c:forEach>
+
+                <c:if test="${maker.next}">
+                <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.end + 1}">next</a></li>
+                </c:if>
+
+                <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.finalPage}">>></a></li>
+            </ul>
+        </nav>
+
+    </div>
 </div>
+
+
 
 <!-- 모달 창 -->
 <div class="modal" id="modal">
@@ -174,6 +222,31 @@
     document.querySelector('.add-btn').onclick = e => {
         window.location.href = '/board/write';
     };
+
+
+    // 현재 위치한 페이지에 active 클래스 부여
+    function appendPageActive() {
+
+        // 현재 서버에서 내려준 페이지 번호
+        const currentPage = '${maker.page.pageNo}';
+        // console.log(currentPage);
+
+        /*
+            li태그들을 전부 확인해서
+            현재 페이지번호와 일치하는 li를 찾으 다음 active 클래스 붙히기
+         */
+        const $ul = document.querySelector(".pagination");
+        const $liList = [...$ul.children];
+
+
+        $liList.forEach($li => {
+            console.log($li)
+            if(currentPage === $li.dataset.pageNum) {
+                $li.classList.add("active")
+            }
+        })
+    }
+    appendPageActive()
 
 
 

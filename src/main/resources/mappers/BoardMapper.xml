@@ -1,0 +1,31 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- namespace에는 이 파일과 연동될 인터페이스의 전체경로를 적는다 -->
+<mapper namespace="com.spring.mvc.chap05.repository.BoardWriteMapper">
+
+    <select id="findAll" resultType="com.spring.mvc.chap05.entity.Board">
+        select * from tbl_board order by board_no desc limit #{pageStart}, #{amount}
+    </select>
+
+    <select id="findOne" resultType="com.spring.mvc.chap05.entity.Board">
+        select * from tbl_board where board_no = #{bno}
+    </select>
+
+    <insert id="save">
+        insert into tbl_board (title, content) values (#{title}, #{content})
+    </insert>
+
+    <delete id="delete">
+        delete from tbl_board where board_no = #{bno}
+    </delete>
+
+    <update id="upViewCount">
+        UPDATE tbl_board SET view_count = view_count + 1 WHERE board_no = #{bno}
+    </update>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(*) FROM tbl_board
+    </select>
+</mapper>
