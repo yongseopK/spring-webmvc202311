@@ -56,7 +56,7 @@ public class BoardController {
     }
     // 5. 글 상세보기 요청 (/board/detail : GET)
     @GetMapping("/detail")
-    public String detail(@RequestParam("bno") int boardNo, Model model) {
+    public String detail(@ModelAttribute("s") Search search, @RequestParam("bno") int boardNo, Model model) {
         System.out.println("볼 게시물 : " + boardNo);
 
         Board board = service.retrieve(boardNo);

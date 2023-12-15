@@ -5,7 +5,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Insert title here</title>
+    <title>어쨋든 게시판임</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,11 +32,6 @@
 <div id="wrap">
 
     <div class="main-title-wrapper">
-        <ul>
-            <li><a href="/board/list?pageNo=${pageNo}&amount=3"><span class="material-symbols-outlined">filter_3</span></a></li>
-            <li><a href="/board/list?pageNo=${pageNo}&amount=6"><span class="material-symbols-outlined">filter_6</span></a></li>
-            <li><a href="/board/list?pageNo=${pageNo}&amount=9"><span class="material-symbols-outlined">filter_9</span></a></li>
-        </ul>
         <h1 class="main-title">꾸러기 게시판</h1>
         <button class="add-btn">새 글 쓰기</button>
     </div>
@@ -61,11 +56,16 @@
 
             </form>
         </div>
+
+        <div class="amount page-item">
+            <a class="page-link" href="/board/list?pageNo=${maker.page.pageNo}&type=${s.type}&keyword=${s.keyword}&amount=6">6</a>
+            <a class="page-link" href="/board/list?pageNo=${maker.page.pageNo}&type=${s.type}&keyword=${s.keyword}&amount=18">18</a>
+            <a class="page-link" href="/board/list?pageNo=${maker.page.pageNo}&type=${s.type}&keyword=${s.keyword}&amount=30">30</a>
+        </div>
     </div>
 
 
     <div class="card-container">
-
         <c:forEach var="b" items="${bList}">
             <div class="card-wrapper">
                 <section class="card" data-bno="${b.boardNo}">
@@ -105,24 +105,24 @@
         <nav aria-label="Page navigation example">
             <ul class="pagination pagination-lg pagination-custom">
                 <c:if test="${maker.page.pageNo != 1}">
-                <li class="page-item"><a class="page-link" href="/board/list?pageNo=1">&lt;&lt;</a></li>
+                <li class="page-item"><a class="page-link" href="/board/list?pageNo=1&type=${s.type}&keyword=${s.keyword}&amount=${s.amount}">&lt;&lt;</a></li>
                 </c:if>
                 <c:if test="${maker.prev}">
-                <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.begin - 1}">prev</a></li>
+                <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.begin - 1}&type=${s.type}&keyword=${s.keyword}&amount=${s.amount}">prev</a></li>
                 </c:if>
 
                 <c:forEach var="i" begin="${maker.begin}" end="${maker.end}" step="1">
                     <li data-page-num="${i}" class="page-item">
-                        <a class="page-link" href="/board/list?pageNo=${i}">${i}</a>
+                        <a class="page-link" href="/board/list?pageNo=${i}&type=${s.type}&keyword=${s.keyword}&amount=${s.amount}">${i}</a>
                     </li>
                 </c:forEach>
 
                 <c:if test="${maker.next}">
-                <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.end + 1}">next</a></li>
+                <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.end + 1}&type=${s.type}&keyword=${s.keyword}&amount=${s.amount}">next</a></li>
                 </c:if>
 
                 <c:if test="${maker.page.pageNo != maker.finalPage}">
-                <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.finalPage}">&gt;&gt;</a></li>
+                <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.finalPage}&type=${s.type}&keyword=${s.keyword}&amount=${s.amount}">&gt;&gt;</a></li>
                 </c:if>
 
             </ul>
@@ -182,7 +182,7 @@
             // section태그에 붙은 글번호 읽기
             const bno = e.target.closest('section.card').dataset.bno;
             // 요청 보내기
-            window.location.href= '/board/detail?bno=' + bno;
+            window.location.href= '/board/detail?bno=' + bno + '&pageNo=${s.pageNo}&type=${s.type}&keyword=${s.keyword}&amount=${s.amount}';
         }
     });
 
