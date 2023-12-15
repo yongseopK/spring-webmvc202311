@@ -2,6 +2,7 @@ package com.spring.mvc.chap05.service;
 
 import com.spring.mvc.chap04.repository.ScoreRepository;
 import com.spring.mvc.chap05.common.Page;
+import com.spring.mvc.chap05.common.Search;
 import com.spring.mvc.chap05.dto.BoardWriteRequestDTO;
 import com.spring.mvc.chap05.dto.BoardWriteResponseDTO;
 import com.spring.mvc.chap05.entity.Board;
@@ -25,7 +26,7 @@ public class BoardService {
     //    this.repository = repository;
     //}
 
-    public List<BoardWriteResponseDTO> getList(Page page) {
+    public List<BoardWriteResponseDTO> getList(Search page) {
         return repository.findAll(page)
                 .stream()
                 .map(BoardWriteResponseDTO::new)
@@ -56,8 +57,8 @@ public class BoardService {
         repository.delete(bno);
     }
 
-    public int getCount() {
-        return repository.count();
+    public int getCount(Search page) {
+        return repository.count(page);
     }
 }
 

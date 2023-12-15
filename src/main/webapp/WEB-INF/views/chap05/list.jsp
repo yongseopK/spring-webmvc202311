@@ -41,6 +41,29 @@
         <button class="add-btn">새 글 쓰기</button>
     </div>
 
+    <div class="top-section">
+        <!-- 검색창 영역 -->
+        <div class="search">
+            <form action="/board/list" method="get">
+
+                <select class="form-select" name="type" id="search-type">
+                    <option value="title">제목</option>
+                    <option value="content">내용</option>
+                    <option value="writer">작성자</option>
+                    <option value="tc">제목+내용</option>
+                </select>
+
+                <input type="text" class="form-control" name="keyword" value="${s.keyword}">
+
+                <button class="btn btn-primary" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+
+            </form>
+        </div>
+    </div>
+
+
     <div class="card-container">
 
         <c:forEach var="b" items="${bList}">
@@ -74,16 +97,6 @@
 
 
     </div>
-<%--    <div class="ulContainer">--%>
-<%--        <ul class="pageUl">--%>
-<%--            <li class="pageLi"><a href="/board/list?pageNo=1&amount=${amount}"><span class="material-symbols-outlined">looks_one</span></a></li>--%>
-<%--            <li class="pageLi"><a href="/board/list?pageNo=2&amount=${amount}"><span class="material-symbols-outlined">looks_two</span></a></li>--%>
-<%--            <li class="pageLi"><a href="/board/list?pageNo=3&amount=${amount}"><span class="material-symbols-outlined">looks_3</span></a></li>--%>
-<%--            <li class="pageLi"><a href="/board/list?pageNo=4&amount=${amount}"><span class="material-symbols-outlined">looks_4</span></a></li>--%>
-<%--            <li class="pageLi"><a href="/board/list?pageNo=5&amount=${amount}"><span class="material-symbols-outlined">looks_5</span></a></li>--%>
-<%--        </ul>--%>
-<%--    </div>--%>
-
 
     <!-- 게시글 목록 하단 영역 -->
     <div class="bottom-section">
@@ -251,8 +264,21 @@
             }
         })
     }
-    appendPageActive()
 
+    // 검색조건 셀렉트박스 옵션타입 고정
+    function fixSearchOption() {
+        // 셀렉트박스의 option태그들을 전부 가져옴
+        const $options = [...document.getElementById('search-type').children];
+
+        $options.forEach($opt => {
+           if($opt.value === '${s.type}') {
+               $opt.setAttribute('selected', 'selected');
+           }
+        });
+    }
+
+    appendPageActive();
+    fixSearchOption();
 
 
 </script>

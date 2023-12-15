@@ -1,5 +1,6 @@
 package com.spring.mvc.chap05.repository;
 
+import com.spring.mvc.chap05.common.Search;
 import com.spring.mvc.chap05.dto.BoardWriteRequestDTO;
 import com.spring.mvc.chap05.entity.Board;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,7 @@ public class BoardWriteJdbcRepository implements BoardWriteRepository{
     private final JdbcTemplate template;
 
     @Override
-    public List<Board> findAll() {
+    public List<Board> findAll(Search page) {
         String sql = "SELECT * FROM tbl_board ORDER BY board_no DESC";
         return template.query(sql, (rs, rn)-> new Board(rs));
     }

@@ -1,5 +1,6 @@
 package com.spring.mvc.chap05.repository;
 
+import com.spring.mvc.chap05.common.Search;
 import com.spring.mvc.chap05.entity.Board;
 import org.springframework.stereotype.Repository;
 import java.util.*;
@@ -17,7 +18,7 @@ public class BoardWriteRepositoryImpl implements BoardWriteRepository{
         boardMap = new HashMap<>();
     }
     @Override
-    public List<Board> findAll() {
+    public List<Board> findAll(Search page) {
         return new ArrayList<>(boardMap.values())
                 .stream()
                 .sorted(comparing(Board::getBoardNo).reversed())

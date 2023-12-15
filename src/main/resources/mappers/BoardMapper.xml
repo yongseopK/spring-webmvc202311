@@ -6,7 +6,19 @@
 <mapper namespace="com.spring.mvc.chap05.repository.BoardWriteMapper">
 
     <select id="findAll" resultType="com.spring.mvc.chap05.entity.Board">
-        select * from tbl_board order by board_no desc limit #{pageStart}, #{amount}
+        select * from tbl_board
+        <if test="type == 'title'">
+            WHERE title LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        <if test="type == 'content'">
+            WHERE content LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        <if test="type == 'tc'">
+            WHERE title LIKE CONCAT('%', #{keyword}, '%')
+            OR content LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        order by board_no desc
+        limit #{pageStart}, #{amount}
     </select>
 
     <select id="findOne" resultType="com.spring.mvc.chap05.entity.Board">
@@ -27,5 +39,15 @@
 
     <select id="count" resultType="int">
         SELECT COUNT(*) FROM tbl_board
+        <if test="type == 'title'">
+            WHERE title LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        <if test="type == 'content'">
+            WHERE content LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        <if test="type == 'tc'">
+            WHERE title LIKE CONCAT('%', #{keyword}, '%')
+            OR content LIKE CONCAT('%', #{keyword}, '%')
+        </if>
     </select>
 </mapper>
