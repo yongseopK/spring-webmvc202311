@@ -259,6 +259,11 @@
     color: #fff !important;
 }
 
+.amount a.active{
+    background: #333 !important;
+    color: #fff !important;
+}
+
 
 /* 검색창 */
 .top-section {
@@ -270,10 +275,14 @@
 }
 .top-section .search {
     width: 40vw;
+    flex: 2;
 }
 .top-section .amount {
     /*width: 200px;*/
     display: flex;
+    flex: 1;
+    justify-content: end;
+    margin-right: 35px;
 }
 .top-section .amount a {
     color: #000000;

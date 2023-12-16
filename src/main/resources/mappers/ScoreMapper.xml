@@ -11,6 +11,15 @@
 
     <select id="findAll" resultMap="scoreMap">
         SELECT * FROM tbl_score
+        <if test="sort == 'num'">
+            ORDER BY stu_num asc
+        </if>
+        <if test="sort == 'name'">
+            ORDER BY stu_name asc
+        </if>
+        <if test="sort == 'avg'">
+            ORDER BY average desc
+        </if>
     </select>
 
     <insert id="save">
@@ -25,4 +34,23 @@
     <select id="findOne" resultMap="scoreMap">
         SELECT * FROM tbl_score WHERE stu_num = #{stuNum}
     </select>
+
+    <update id="updateScore">
+        update tbl_score
+        SET
+        kor = #{kor}
+        , eng = #{eng}
+        , math = #{math}
+        , total = ${kor + eng + math}
+        , average = total / 3.0
+        WHERE stu_num = #{stuNum}
+    </update>
+
+    <update id="updateGrade">
+        update tbl_score
+        set
+        grade = #{grade}
+        WHERE stu_num = #{stuNum}
+    </update>
+
 </mapper>

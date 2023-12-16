@@ -58,9 +58,9 @@
         </div>
 
         <div class="amount page-item">
-            <a class="page-link" href="/board/list?pageNo=${maker.page.pageNo}&type=${s.type}&keyword=${s.keyword}&amount=6">6</a>
-            <a class="page-link" href="/board/list?pageNo=${maker.page.pageNo}&type=${s.type}&keyword=${s.keyword}&amount=18">18</a>
-            <a class="page-link" href="/board/list?pageNo=${maker.page.pageNo}&type=${s.type}&keyword=${s.keyword}&amount=30">30</a>
+            <a data-amount-num="6" class="page-link" href="/board/list?pageNo=${maker.page.pageNo}&type=${s.type}&keyword=${s.keyword}&amount=6">6</a>
+            <a data-amount-num="18" class="page-link" href="/board/list?pageNo=${maker.page.pageNo}&type=${s.type}&keyword=${s.keyword}&amount=18">18</a>
+            <a data-amount-num="30" class="page-link" href="/board/list?pageNo=${maker.page.pageNo}&type=${s.type}&keyword=${s.keyword}&amount=30">30</a>
         </div>
     </div>
 
@@ -241,6 +241,20 @@
         window.location.href = '/board/write';
     };
 
+    function  appendAmountActive() {
+        const currentAmount = '${s.amount}';
+
+        const $div = document.querySelector(".amount");
+        const $aList = [...$div.children];
+
+        $aList.forEach($a => {
+            console.log($a);
+            if(currentAmount === $a.dataset.amountNum) {
+                $a.classList.add("active");
+            }
+        })
+    }
+
 
     // 현재 위치한 페이지에 active 클래스 부여
     function appendPageActive() {
@@ -278,6 +292,7 @@
     }
 
     appendPageActive();
+    appendAmountActive();
     fixSearchOption();
 
 

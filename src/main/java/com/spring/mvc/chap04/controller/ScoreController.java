@@ -141,9 +141,11 @@ public class ScoreController {
 
 
 
+
         service.updateScore(score, kor, eng, math);
+        service.updateGrade(score, score.getStuNum());
 
-
+        System.out.println("score = " + score.getGrade());
         return "redirect:/score/list";
     }
 }

@@ -1,5 +1,6 @@
 package com.spring.mvc.chap04.repository;
 
+import com.spring.mvc.chap04.entity.Grade;
 import com.spring.mvc.chap04.entity.Score;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -21,5 +22,7 @@ public interface ScoreMapper {
     // 성적 정보 개별 조회
     Score findOne(int stuNum);
 
-    boolean update(int stuNum, int kor, int eng, int math);
+    boolean updateScore(int stuNum, int kor, int eng, int math);
+
+    boolean updateGrade(int stuNum, Grade grade);
 }
