@@ -1,5 +1,6 @@
 package com.spring.mvc.chap05.repository;
 
+import com.spring.mvc.chap05.common.Search;
 import com.spring.mvc.chap05.entity.Board;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -42,7 +43,7 @@ class BoardWriteMapperTest {
         //given
 
         //when
-        List<Board> boardList = mapper.findAll();
+        List<Board> boardList = mapper.findAll(new Search());
         //then
         assertEquals(1204, boardList.size());
     }

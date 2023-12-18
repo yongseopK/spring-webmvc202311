@@ -8,6 +8,8 @@ import com.spring.mvc.chap05.dto.BoardWriteResponseDTO;
 import com.spring.mvc.chap05.entity.Board;
 import com.spring.mvc.chap05.service.BoardService;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.ExtensionMethod;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,13 +18,16 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/board")
+@Slf4j
 public class BoardController {
 
     private final BoardService service;
     // 1. 목록 조회 요청 (/board/list : GET)
     @GetMapping("/list")
     public String select(@ModelAttribute("s") Search page, Model model) {
-        System.out.println(page);
+        log.info("/board/list : GET!");
+        log.debug("{}", page);
+
         List<BoardWriteResponseDTO> dtoList = service.getList(page);
 
         // 페이징 계산 알고리즘 적용
@@ -37,7 +42,7 @@ public class BoardController {
     // 2. 글쓰기 화면요청 (/board/write : GET)
     @GetMapping("/write")
     public String writePost() {
-        System.out.println("글쓰기 페이지로 이동");
+        log.info("글쓰기 페이지로 이동");
         return "chap05/write";
     }
     // 3. 글쓰기 등록요청 (/board/write : POST)
