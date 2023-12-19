@@ -1,14 +1,12 @@
 package com.spring.mvc.chap05.controller;
 
-import com.spring.mvc.chap05.common.Page;
 import com.spring.mvc.chap05.common.PageMaker;
 import com.spring.mvc.chap05.common.Search;
-import com.spring.mvc.chap05.dto.BoardWriteRequestDTO;
-import com.spring.mvc.chap05.dto.BoardWriteResponseDTO;
+import com.spring.mvc.chap05.dto.request.BoardWriteRequestDTO;
+import com.spring.mvc.chap05.dto.response.BoardWriteResponseDTO;
 import com.spring.mvc.chap05.entity.Board;
 import com.spring.mvc.chap05.service.BoardService;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.ExtensionMethod;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

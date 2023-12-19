@@ -1,15 +1,11 @@
 package com.spring.mvc.chap05.service;
 
-import com.spring.mvc.chap04.repository.ScoreRepository;
-import com.spring.mvc.chap05.common.Page;
 import com.spring.mvc.chap05.common.Search;
-import com.spring.mvc.chap05.dto.BoardWriteRequestDTO;
-import com.spring.mvc.chap05.dto.BoardWriteResponseDTO;
+import com.spring.mvc.chap05.dto.request.BoardWriteRequestDTO;
+import com.spring.mvc.chap05.dto.response.BoardWriteResponseDTO;
 import com.spring.mvc.chap05.entity.Board;
 import com.spring.mvc.chap05.repository.BoardWriteMapper;
-import com.spring.mvc.chap05.repository.BoardWriteRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

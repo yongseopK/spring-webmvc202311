@@ -1,7 +1,6 @@
 package com.spring.mvc.chap05.repository;
 
 import com.spring.mvc.chap05.common.Search;
-import com.spring.mvc.chap05.dto.BoardWriteRequestDTO;
 import com.spring.mvc.chap05.entity.Board;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
