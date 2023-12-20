@@ -294,7 +294,6 @@
         fetch(`\${URL}/\${bno}/page/\${page}`)
             .then(res => res.json())
             .then(replyList => {
-                console.log(replyList);
                 renderReplies(replyList);
             });
     }
@@ -308,13 +307,77 @@
             // 이벤트 타겟이 a링크가 아닌경우 href속성을 못가져올 수 있으니 타겟 제한하기
             if (!e.target.matches('.page-item a')) return;
 
-            console.log(e.target.getAttribute('href'));
+            // console.log(e.target.getAttribute('href'));
 
             e.preventDefault(); // href 링크이동 기능 중단 : 태그 동작 죽이기
 
             // 페이지 번호에 맞는 새로운 댓글목록 비동기 요청
             fetchGetReplies(e.target.getAttribute('href'));
         };
+    }
+
+    // 댓글 등록 처리 핸들러 등록 함수
+    function makeReplyPostClickEvent() {
+            const $addBtn = document.getElementById('replyAddBtn');
+
+            $addBtn.onclick = e => {
+                const $replyText = document.getElementById('newReplyText');
+                const $replyWriter = document.getElementById('newReplyWriter');
+
+                // console.log($replyText.value);
+                // console.log($replyWriter.value);
+
+                const textVal = $replyText.value.trim();
+                const writerVal = $replyWriter.value.trim();
+
+                // 사용자 입력값 검증
+                if (textVal === '') {
+                    alert('댓글 내용은 필수값입니다.');
+                    return;
+                } else if (writerVal.value === '') {
+                    alert('댓글 작성자는 필수값입니다.');
+                    return;
+                } else if(writerVal.length <2 || writerVal.length > 8) {
+                    alert('댓글 작성자는 2글자에서 8글자 사이로 작성하세요');
+                    return;
+                }
+
+
+                // 서버로 보낼 데이터
+                const payload = {
+                    text: $replyText.value,
+                    author: $replyWriter.value,
+                    bno: bno
+                }
+
+                // GET방식을 제외한 요청의 정보 만들기
+                const requestInfo = {
+                  method: 'POST',
+                  headers: {
+                      'content-type': 'application/json',
+                  },
+                  body: JSON.stringify(payload)
+                };
+                // 서버에 POST 요청 보내기
+                fetch(URL, requestInfo)
+                    .then(res => {
+                        if (res.status === 200) {
+                            alert("댓글이 정상 등록되었습니다!")
+                            return res.json();
+                        } else {
+                            alert("댓글 등록에 실패했습니다!");
+                            return res.text();
+                        }
+                    })
+                    .then(responseData => {
+                        console.log(responseData);
+                        $replyText.value = "";
+                        $replyWriter.value = "";
+
+                        fetchGetReplies(responseData.pageInfo.finalPage);
+                    });
+
+            };
     }
 
     // 메인 실행부
@@ -327,6 +390,9 @@
 
         // 페이지 번호 클릭이벤트 핸들러처리
         makePageButtonClickEvent();
+
+        // 댓글 등록 클릭 이벤트 핸들러 처리
+        makeReplyPostClickEvent();
 
     })();
 

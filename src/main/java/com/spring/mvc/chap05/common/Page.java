@@ -1,8 +1,11 @@
 package com.spring.mvc.chap05.common;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Setter
+@Getter
+@ToString
+@AllArgsConstructor
 public class Page {
     private int pageNo;     // 클라이언트가 보낸 페이지번호
     private int amount;     // 클라이언트가 보낸 목록 게시물 수
@@ -11,6 +14,8 @@ public class Page {
         this.pageNo = 1;
         this.amount = 6;
     }
+
+
 
     /*
         만약에 한 페이지에 게시물을 10개씩 뿌린다고 가정하면
