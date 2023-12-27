@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import static com.spring.mvc.util.LoginUtils.isLogin;
+
 @Configuration
 @Slf4j
 public class AfterLoginInterceptor implements HandlerInterceptor {
@@ -24,7 +26,7 @@ public class AfterLoginInterceptor implements HandlerInterceptor {
 
         HttpSession session = request.getSession();
 
-        if (session.getAttribute("login") != null) {
+        if (isLogin(session)) {
             response.sendRedirect("/");
             return false;
         }

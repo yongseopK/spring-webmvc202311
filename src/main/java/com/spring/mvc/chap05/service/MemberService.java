@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpSession;
 
 import static com.spring.mvc.chap05.service.LoginResult.*;
+import static com.spring.mvc.util.LoginUtils.LOGIN_KEY;
 
 @Service
 @Slf4j
@@ -81,10 +82,11 @@ public class MemberService {
                 .account(member.getAccount())
                 .email(member.getEmail())
                 .nickName(member.getName())
+                .auth(member.getAuth().toString())
                 .build();
 
         // 세션에 로그인한 회원의 정보 저장
-        session.setAttribute("login", dto);
+        session.setAttribute(LOGIN_KEY, dto);
 
         // 세션도 수명을 설정해야 함.
         session.setMaxInactiveInterval(60 * 60);
