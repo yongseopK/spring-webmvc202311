@@ -22,6 +22,7 @@ public class BoardWriteResponseDTO {
     private final  String regDateTime;
     private final int viewCount;
     private final int boardNo;
+    private final String account;
 
     public BoardWriteResponseDTO(Board board) {
         this.title = board.getTitle();
@@ -32,6 +33,7 @@ public class BoardWriteResponseDTO {
         this.regDateTime = timeFormatter(board.getRegDateTime());
         this.viewCount = board.getViewCount();
         this.boardNo = board.getBoardNo();
+        this.account = board.getAccount();
     }
 
     private String shortTitle(String name) {

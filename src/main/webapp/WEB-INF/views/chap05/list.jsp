@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -50,9 +50,12 @@
         </div>
 
         <div class="amount page-item">
-            <a data-amount-num="6" class="page-link" href="/board/list?pageNo=${s.pageNo}&type=${s.type}&keyword=${s.keyword}&amount=6">6</a>
-            <a data-amount-num="18" class="page-link" href="/board/list?pageNo=${s.pageNo}&type=${s.type}&keyword=${s.keyword}&amount=18">18</a>
-            <a data-amount-num="30" class="page-link" href="/board/list?pageNo=${s.pageNo}&type=${s.type}&keyword=${s.keyword}&amount=30">30</a>
+            <a data-amount-num="6" class="page-link"
+               href="/board/list?pageNo=${s.pageNo}&type=${s.type}&keyword=${s.keyword}&amount=6">6</a>
+            <a data-amount-num="18" class="page-link"
+               href="/board/list?pageNo=${s.pageNo}&type=${s.type}&keyword=${s.keyword}&amount=18">18</a>
+            <a data-amount-num="30" class="page-link"
+               href="/board/list?pageNo=${s.pageNo}&type=${s.type}&keyword=${s.keyword}&amount=30">30</a>
         </div>
     </div>
 
@@ -79,11 +82,14 @@
 
                     </div>
                 </section>
-                <div class="card-btn-group">
-                    <button class="del-btn" data-href="/board/delete?bno=${b.boardNo}">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
+                <c:if test="${login.account == b.account || login.auth == 'ADMIN'}">
+                    <div class="card-btn-group">
+                        <button class="del-btn" data-href="/board/delete?bno=${b.boardNo}">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </c:if>
+
             </div>
         </c:forEach>
 
@@ -97,24 +103,33 @@
         <nav aria-label="Page navigation example">
             <ul class="pagination pagination-lg pagination-custom">
                 <c:if test="${maker.page.pageNo != 1}">
-                <li class="page-item"><a class="page-link" href="/board/list?pageNo=1&type=${s.type}&keyword=${s.keyword}&amount=${s.amount}">&lt;&lt;</a></li>
+                    <li class="page-item"><a class="page-link"
+                                             href="/board/list?pageNo=1&type=${s.type}&keyword=${s.keyword}&amount=${s.amount}">&lt;&lt;</a>
+                    </li>
                 </c:if>
                 <c:if test="${maker.prev}">
-                <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.begin - 1}&type=${s.type}&keyword=${s.keyword}&amount=${s.amount}">prev</a></li>
+                    <li class="page-item"><a class="page-link"
+                                             href="/board/list?pageNo=${maker.begin - 1}&type=${s.type}&keyword=${s.keyword}&amount=${s.amount}">prev</a>
+                    </li>
                 </c:if>
 
                 <c:forEach var="i" begin="${maker.begin}" end="${maker.end}" step="1">
                     <li data-page-num="${i}" class="page-item">
-                        <a class="page-link" href="/board/list?pageNo=${i}&type=${s.type}&keyword=${s.keyword}&amount=${s.amount}">${i}</a>
+                        <a class="page-link"
+                           href="/board/list?pageNo=${i}&type=${s.type}&keyword=${s.keyword}&amount=${s.amount}">${i}</a>
                     </li>
                 </c:forEach>
 
                 <c:if test="${maker.next}">
-                <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.end + 1}&type=${s.type}&keyword=${s.keyword}&amount=${s.amount}">next</a></li>
+                    <li class="page-item"><a class="page-link"
+                                             href="/board/list?pageNo=${maker.end + 1}&type=${s.type}&keyword=${s.keyword}&amount=${s.amount}">next</a>
+                    </li>
                 </c:if>
 
                 <c:if test="${maker.page.pageNo != maker.finalPage}">
-                <li class="page-item"><a class="page-link" href="/board/list?pageNo=${maker.finalPage}&type=${s.type}&keyword=${s.keyword}&amount=${s.amount}">&gt;&gt;</a></li>
+                    <li class="page-item"><a class="page-link"
+                                             href="/board/list?pageNo=${maker.finalPage}&type=${s.type}&keyword=${s.keyword}&amount=${s.amount}">&gt;&gt;</a>
+                    </li>
                 </c:if>
 
             </ul>
@@ -122,7 +137,6 @@
 
     </div>
 </div>
-
 
 
 <!-- 모달 창 -->
@@ -135,7 +149,6 @@
         </div>
     </div>
 </div>
-
 
 
 <script>
@@ -174,7 +187,7 @@
             // section태그에 붙은 글번호 읽기
             const bno = e.target.closest('section.card').dataset.bno;
             // 요청 보내기
-            window.location.href= '/board/detail?bno=' + bno + '&pageNo=${s.pageNo}&type=${s.type}&keyword=${s.keyword}&amount=${s.amount}';
+            window.location.href = '/board/detail?bno=' + bno + '&pageNo=${s.pageNo}&type=${s.type}&keyword=${s.keyword}&amount=${s.amount}';
         }
     });
 
@@ -201,7 +214,6 @@
         const $delBtn = e.target.closest('.card-wrapper')?.querySelector('.del-btn');
         $delBtn.style.opacity = '0';
     }
-
 
 
     $cardContainer.onmouseover = e => {
@@ -233,7 +245,7 @@
         window.location.href = '/board/write';
     };
 
-    function  appendAmountActive() {
+    function appendAmountActive() {
         const currentAmount = '${s.amount}';
 
         const $div = document.querySelector(".amount");
@@ -241,7 +253,7 @@
 
         $aList.forEach($a => {
             console.log($a);
-            if(currentAmount === $a.dataset.amountNum) {
+            if (currentAmount === $a.dataset.amountNum) {
                 $a.classList.add("active");
             }
         })
@@ -265,7 +277,7 @@
 
         $liList.forEach($li => {
             console.log($li)
-            if(currentPage === $li.dataset.pageNum) {
+            if (currentPage === $li.dataset.pageNum) {
                 $li.classList.add("active")
             }
         })
@@ -277,9 +289,9 @@
         const $options = [...document.getElementById('search-type').children];
 
         $options.forEach($opt => {
-           if($opt.value === '${s.type}') {
-               $opt.setAttribute('selected', 'selected');
-           }
+            if ($opt.value === '${s.type}') {
+                $opt.setAttribute('selected', 'selected');
+            }
         });
     }
 

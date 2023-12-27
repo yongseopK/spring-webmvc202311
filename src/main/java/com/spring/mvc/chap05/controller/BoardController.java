@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -45,8 +47,8 @@ public class BoardController {
     }
     // 3. 글쓰기 등록요청 (/board/write : POST)
     @PostMapping("/write")
-    public String write(BoardWriteRequestDTO dto) {
-        service.insertPost(dto);
+    public String write(BoardWriteRequestDTO dto, HttpSession session) {
+        service.insertPost(dto, session);
         return "redirect:/board/list";
     }
     // 4. 글 삭제 요청 (/board/delete : GET)

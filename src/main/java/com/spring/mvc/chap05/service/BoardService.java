@@ -5,9 +5,11 @@ import com.spring.mvc.chap05.dto.request.BoardWriteRequestDTO;
 import com.spring.mvc.chap05.dto.response.BoardWriteResponseDTO;
 import com.spring.mvc.chap05.entity.Board;
 import com.spring.mvc.chap05.repository.BoardWriteMapper;
+import com.spring.mvc.util.LoginUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,8 +32,10 @@ public class BoardService {
 
     }
 
-    public void insertPost(BoardWriteRequestDTO dto) {
-        repository.save(new Board(dto));
+    public void insertPost(BoardWriteRequestDTO dto, HttpSession session) {
+        Board board = new Board(dto);
+        board.setAccount(LoginUtils.getCurrentLoginMemberAccount(session));
+        repository.save(board);
     }
 
     public Board retrieve(int boardNo) {
