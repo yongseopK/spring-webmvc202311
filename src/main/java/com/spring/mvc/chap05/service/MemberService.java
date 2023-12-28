@@ -1,5 +1,6 @@
 package com.spring.mvc.chap05.service;
 
+import com.spring.mvc.chap05.dto.request.AutoLoginDTO;
 import com.spring.mvc.chap05.dto.request.LoginRequestDTO;
 import com.spring.mvc.chap05.dto.request.SignUpRequestDTO;
 import com.spring.mvc.chap05.dto.response.LoginUserResponseDTO;
@@ -12,9 +13,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import java.time.LocalDateTime;
+
 import static com.spring.mvc.chap05.service.LoginResult.*;
+import static com.spring.mvc.util.LoginUtils.AUTO_LOGIN_COOKIE;
 import static com.spring.mvc.util.LoginUtils.LOGIN_KEY;
 
 @Service
@@ -34,7 +40,11 @@ public class MemberService {
     }
 
     // 로그인 검증
-    public LoginResult authenticate(LoginRequestDTO dto) {
+    public LoginResult authenticate(
+            LoginRequestDTO dto,
+            HttpSession session,
+            HttpServletResponse response
+    ) {
 
         Member foundMember = getMember(dto.getAccount());
 
@@ -50,6 +60,29 @@ public class MemberService {
         if (!encoder.matches(inputPassword, realPassword)) {
             log.info("비밀번호가 일치하지 않습니다!");
             return NO_PW;
+        }
+
+        // 자동 로그인 처리
+        if (dto.isAutoLogin()) {
+            // 1. 자동 로그인 쿠키 생성 - 쿠키 안에 절대 중복되지 않는 값(브라우저 세션 아이디)을 저장
+            Cookie autoLoginCookie = new Cookie(AUTO_LOGIN_COOKIE, session.getId());
+
+            // 2. 쿠키 설정 - 사용경로, 수명...
+            int limitTime = 60 * 60 * 24 * 90;      // 자동 로그인 유지 시간
+            autoLoginCookie.setPath("/");
+            autoLoginCookie.setMaxAge(limitTime);
+
+            // 3. 쿠키를 클라이언트에 전송
+            response.addCookie(autoLoginCookie);
+
+            // 4. DB에도 쿠키에 관련된 값들(랜덤 세션 키, 만료시간)을 갱신
+            memberMapper.saveAutoLogin(
+                    AutoLoginDTO.builder()
+                            .sessionId(session.getId())
+                            .limitTime(LocalDateTime.now().plusDays(90))
+                            .account(dto.getAccount())
+                            .build()
+            );
         }
 
         log.info("{}님 로그인 성공", foundMember.getAccount());

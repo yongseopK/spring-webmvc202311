@@ -17,5 +17,7 @@ public class Member {
     private String email;       // 이메일
     private Auth auth;           // 권한
     private LocalDateTime regDate;
+    private String sessionId;   // 세션 ID
+    private LocalDateTime limitTime;
 
 }
