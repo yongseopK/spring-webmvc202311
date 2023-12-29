@@ -23,6 +23,7 @@ public class BoardWriteResponseDTO {
     private final int viewCount;
     private final int boardNo;
     private final String account;
+    private final String writer;
 
     public BoardWriteResponseDTO(Board board) {
         this.title = board.getTitle();
@@ -34,6 +35,7 @@ public class BoardWriteResponseDTO {
         this.viewCount = board.getViewCount();
         this.boardNo = board.getBoardNo();
         this.account = board.getAccount();
+        this.writer = board.getWriter();
     }
 
     private String shortTitle(String name) {

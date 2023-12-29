@@ -22,7 +22,15 @@
     </select>
 
     <select id="findOne" resultType="com.spring.mvc.chap05.entity.Board">
-        select * from tbl_board where board_no = #{bno}
+        select
+            B.board_no, B.title
+            , B.content, B.view_count
+            , B.regDateTime, B.account
+            , M.name AS writer
+        from tbl_board B
+        join tbl_member M
+        on B.account = M.account
+        where board_no = #{bno}
     </select>
 
     <insert id="save">
