@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import static com.spring.mvc.util.LoginUtils.LOGIN_KEY;
+import static com.spring.mvc.util.LoginUtils.*;
 
 @Controller
 @RequestMapping("/members")
@@ -110,16 +110,29 @@ public class MemberController {
     // 로그아웃 요청 처리
     @GetMapping("/sign-out")
     public String signOut(
-            //HttpServletRequest request
-            HttpSession session
+            HttpServletRequest request,
+            HttpServletResponse response
+            //HttpSession session
     ) {
-        // 세션에서 로그인 정보 기록 삭제
-        //HttpSession session = request.getSession();
-        session.removeAttribute(LOGIN_KEY);
+        // 세션 얻기
+        HttpSession session = request.getSession();
 
-        // 세션을 초기화(RESET)
-        session.invalidate();
+        // 로그인 상태인지 확인
+        if (isLogin(session)) {
+            // 자동 로그인 상태인지 확인
+            if (isAutoLogin(request)) {
+                // 쿠키를 삭제해주고, DB 데이터도 원래대로 돌려놓는다.
+                memberService.autoLoginClear(request, response);
+            }
 
-        return "redirect:/";
+            // 세션에서 로그인 정보 기록 삭제
+            session.removeAttribute(LOGIN_KEY);
+
+            // 세션을 초기화(RESET)
+            session.invalidate();
+
+            return "redirect:/";
+        }
+        return "redirect:/members/sign-in";
     }
 }

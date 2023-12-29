@@ -6,9 +6,9 @@
 
     <insert id="save">
         insert into tbl_reply
-            (reply_text, reply_writer, board_no)
+            (reply_text, reply_writer, board_no, account)
         values
-            (#{replyText}, #{replyWriter}, #{boardNo})
+            (#{replyText}, #{replyWriter}, #{boardNo}, #{account})
     </insert>
 
     <update id="modify">
@@ -25,7 +25,7 @@
     <select id="findOne" resultType="reply">
         select
             reply_no, reply_text, reply_writer
-            , reply_date, board_no
+            , reply_date, board_no, account
         from tbl_reply
         where reply_no = #{replyNo}
     </select>
@@ -33,7 +33,7 @@
     <select id="findAll" resultType="reply">
         select
         reply_no, reply_text, reply_writer
-        , reply_date, board_no
+        , reply_date, board_no, account
         from tbl_reply
         where board_no = #{bn}
         order by reply_no

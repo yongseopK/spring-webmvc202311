@@ -83,7 +83,7 @@
                             <tr>
                                 <td style="width: 100%; text-align: center; colspan: 2; margin-top: 24px; padding-top: 12px; border-top: 1px solid #ececec">
                                     <a class="btn form-control tooltipstered" href="/members/sign-up"
-                                       style="cursor: pointer; margin-top: 0; height: 40px; color: white; background-color: gray; border: 0px solid #388E3C; opacity: 0.8">
+                                       style="cursor: pointer; margin-top: 0; height: 40px; color: white; background-color: grey; border: 0px solid #388E3C; opacity: 0.8">
                                         회원가입</a>
                                 </td>
                             </tr>

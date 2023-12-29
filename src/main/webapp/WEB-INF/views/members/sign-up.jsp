@@ -197,12 +197,10 @@
                 = '<b style="color: red;">[특수문자 포함 8자 이상!]</b>';
             checkResultList[1] = false;
         } else {
-
             $pwInput.style.borderColor = 'skyblue';
             document.getElementById('pwChk').innerHTML
                 = '<b style="color: skyblue;">[사용가능한 비밀번호입니다.]</b>';
             checkResultList[1] = true;
-
         }
     };
 
@@ -259,7 +257,6 @@
                 = '<b style="color: red;">[이름은 한글로 ~]</b>';
             checkResultList[3] = false;
         } else {
-
             $nameInput.style.borderColor = 'skyblue';
             document.getElementById('nameChk').innerHTML
                 = '<b style="color: skyblue;">[사용가능한 이름입니다.]</b>';
