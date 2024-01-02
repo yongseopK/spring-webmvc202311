@@ -27,7 +27,7 @@ class MemberServiceTest {
                 .email("sanrio123@gmail.com")
                 .build();
         //when
-        boolean join = memberService.join(dto);
+        boolean join = memberService.join(dto, savePath);
 
         //then
         assertTrue(join);
