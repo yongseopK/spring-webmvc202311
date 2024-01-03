@@ -60,6 +60,7 @@ public class MemberController {
         String savePath = uploadFile(dto.getProfileImage(), rootPath);
         log.debug("save path : {}", savePath);
 
+
         boolean flag = memberService.join(dto, savePath);
         return flag ? "redirect:/board/list" : "redirect:/members/sign-up";
     }
