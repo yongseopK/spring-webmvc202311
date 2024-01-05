@@ -34,6 +34,8 @@ public class SignUpRequestDTO {
     // 프로필 사진 파일
     private MultipartFile profileImage;
 
+    private Member.LoginMethod loginMethod;
+
     // 엔터티로 변환하는 메서드
     public Member toEntity(PasswordEncoder encoder, String savePath) {
         return Member.builder()
@@ -42,6 +44,7 @@ public class SignUpRequestDTO {
                 .email(email)
                 .name(name)
                 .profileImage(savePath)
+                .loginMethod(loginMethod)
                 .build();
     }
 }
